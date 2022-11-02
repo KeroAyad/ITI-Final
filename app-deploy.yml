@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-myapp
+  namespace: app-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs
+  template:
+    metadata:
+      labels:
+        app: nodejs
+    spec:
+      containers:
+        - name: container-app
+          image: kerolosayad/nodeapp
+          ports:
+            - name: httpport
+              containerPort: 3000
