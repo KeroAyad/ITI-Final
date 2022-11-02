@@ -5,7 +5,9 @@ pipeline {
             steps {
                   withCredentials([usernamePassword(credentialsId: 'dockerhub_id', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')])
                 {
-                    sh "docker login -u ${USERNAME} -p ${PASSWORD}"
+                    sh "echo ${PASSWORD} > my_password.txt"
+                    sh "cat ~/my_password.txt | docker login --username ${USERNAME} --password-stdin"
+                    // sh "docker login -u ${USERNAME} -p ${PASSWORD}"
                     sh "docker build -t kerolosayad/nodeapp:latest ."
                     sh "docker push kerolosayad/nodeapp"
                     
