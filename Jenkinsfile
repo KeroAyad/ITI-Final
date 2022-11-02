@@ -1,13 +1,13 @@
 pipeline {
     agent any
-        // stages {
-        //   stage('git') {
-        //     steps {
-        //          git branch: 'main',
-        //             url: 'https://github.com/KeroAyad/ITI-Final'
+        stages {
+          stage('git') {
+            steps {
+                 git branch: 'main',
+                    url: 'https://github.com/KeroAyad/ITI-Final'
 
-        //     }
-        // }
+            }
+        }
         stage('build') {
             steps {
                   withCredentials([usernamePassword(credentialsId: 'dockerhub_id', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')])
@@ -31,4 +31,4 @@ pipeline {
         
         }
     }
-// }
+}
