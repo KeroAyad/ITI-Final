@@ -4,7 +4,7 @@ metadata:
   name: deploy-myapp
   namespace: app-deploy
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: nodejs
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: container-app
-          image: kerolosayad/nodeapp
+          image: kerolosayad/nodeapp:latest
           ports:
             - name: httpport
               containerPort: 3000
