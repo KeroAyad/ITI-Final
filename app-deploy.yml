@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: container-app
-          image: kerolosayad/nodeapp:latest
+          image: kerolosayad/nodeapp
           ports:
             - name: httpport
               containerPort: 3000
