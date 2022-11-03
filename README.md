@@ -1,6 +1,17 @@
 # Final ITI project part 2
 
 ## Build and deploy app using Jenkins
+
+### Once a commit is made Jenkins will 
+
+- Build image from Dockerfile
+
+- Push image to DockerHub
+
+- Apply deployment for the app based on the image
+
+- Apply LoadBalancer service for the app
+
 ### Create Dockerfile for Node.JS app
 [./Dockerfile](Dockerfile)
 ```
