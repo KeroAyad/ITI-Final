@@ -1,6 +1,9 @@
 # Final ITI project part 2
 
 ## Build and deploy app using Jenkins
+Here's my diagram
+
+![](screenshots/Jenkins%20digram.drawio.png)
 
 ### Once a commit is made Jenkins will 
 
