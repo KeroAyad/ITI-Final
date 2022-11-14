@@ -5,24 +5,21 @@ pipeline {
 apiVersion: v1
 kind: Pod
 metadata:
-    name: docker
+  name: buildah
 spec:
-    containers:
-    - name: docker
-      image: docker:latest
-      tty: true
-      securityContext:
-          allowPrivilegeEscalation: true
-          privileged: true 
-          readOnlyRootFilesystem: false
-          runAsUser: 0
-      volumeMounts:
-      - name: docker
-        mountPath: /var/run/docker.sock
-    volumes:
-    - name: docker
-      hostPath:
-        path: /var/run/docker.sock'''   
+  containers:
+  - name: buildah
+    image: quay.io/buildah/stable:v1.23.1
+    command:
+    - cat
+    tty: true
+    securityContext:
+      privileged: true
+    volumeMounts:
+      - name: varlibcontainers
+        mountPath: /var/lib/containers
+  volumes:
+    - name: varlibcontainers'''   
             }
         }        
         stages {
@@ -33,7 +30,7 @@ spec:
 //                     sh "docker login -u kerolosayad -p ${PASSWORD}"
 //                     sh "docker build -t kerolosayad/nodeapp:latest ."
 //                     sh "docker push kerolosayad/nodeapp"
-                       sh "/usr/local/bin/docker ps -a"
+                       sh "buildah ps"
                     
                 }
             }    
