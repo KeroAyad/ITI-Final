@@ -9,16 +9,17 @@ pipeline {
         spec:
           containers:
           - name: docker
-            image: docker
-            // command: ["curl", "-fsSLo", "/usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg"]
+            image: docker:latest
             tty: true
             securityContext:
               privileged: true
             volumeMounts:
-              - name: varlibcontainers
-                mountPath: /var/lib/containers
+               - name: docker
+                 mountPath: /var/run/docker.sock
           volumes:
-            - name: varlibcontainers
+            - name: docker
+              hostPath:
+                path: /var/run/docker.sock
         '''   
             }
           }        
