@@ -33,7 +33,7 @@ spec:
 //                     sh "docker login -u kerolosayad -p ${PASSWORD}"
 //                     sh "docker build -t kerolosayad/nodeapp:latest ."
 //                     sh "docker push kerolosayad/nodeapp"
-                       sh "docker ps -a"
+                       sh "/usr/local/bin/docker ps -a"
                     
                 }
             }    
