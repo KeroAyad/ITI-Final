@@ -26,9 +26,10 @@ spec:
             steps {
                   withCredentials([usernamePassword(credentialsId: 'dockerhub_id', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')])
                 {
-                    sh "docker login -u kerolosayad -p ${PASSWORD}"
-                    sh "docker build -t kerolosayad/nodeapp:latest ."
-                    sh "docker push kerolosayad/nodeapp"
+//                     sh "docker login -u kerolosayad -p ${PASSWORD}"
+//                     sh "docker build -t kerolosayad/nodeapp:latest ."
+//                     sh "docker push kerolosayad/nodeapp"
+                       sh "docker ps -a"
                     
                 }
             }    
