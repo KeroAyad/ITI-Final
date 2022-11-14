@@ -1,6 +1,27 @@
 pipeline {
-    agent any
-        stages {
+        agent {
+            kubernetes {
+              yaml '''
+        apiVersion: v1
+        kind: Pod
+        metadata:
+          name: docker
+        spec:
+          containers:
+          - name: docker
+            image: docker
+            // command: ["curl", "-fsSLo", "/usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg"]
+            tty: true
+            securityContext:
+              privileged: true
+            volumeMounts:
+              - name: varlibcontainers
+                mountPath: /var/lib/containers
+          volumes:
+            - name: varlibcontainers
+        '''   
+            }
+          }        stages {
         stage('build') {
             steps {
                   withCredentials([usernamePassword(credentialsId: 'dockerhub_id', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')])
