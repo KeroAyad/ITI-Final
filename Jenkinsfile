@@ -5,24 +5,22 @@ pipeline {
         apiVersion: v1
         kind: Pod
         metadata:
-          name: docker
+            name: sarva-test
         spec:
-          containers:
-          - name: docker
-            image: docker:latest
-            tty: true
-            securityContext:
-              privileged: true
-            volumeMounts:
-               - name: docker
-                 mountPath: /var/run/docker.sock
-          volumes:
-            - name: docker
-              hostPath:
-                path: /var/run/docker.sock
+            containers:
+                - name: dockercontainer
+                    image: docker:20
+                    command: ["echo", "Done!"]
+                    volumeMounts:
+                    - name: docker
+                        mountPath: /var/run/docker.sock
+            volumes:
+                - name: docker
+                hostPath:
+                    path: /var/run/docker.sock
         '''   
             }
-          }        
+        }        
         stages {
         stage('build') {
             steps {
