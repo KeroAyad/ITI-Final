@@ -8,20 +8,19 @@ pipeline {
           name: docker
         spec:
           containers:
-            - name: docker
+          - name: docker
             image: docker:latest
-            command: ["echo", "Done!"]
             tty: true
             securityContext:
                 privileged: true
             volumeMounts:
             - name: docker
-                mountPath: /var/run/docker.sock
+              mountPath: /var/run/docker.sock
           volumes:
             - name: docker
               hostPath:
                 path: /var/run/docker.sock
-        '''   
+                '''   
             }
         }        
         stages {
