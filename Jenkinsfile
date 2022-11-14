@@ -12,7 +12,10 @@ spec:
       image: docker:latest
       tty: true
       securityContext:
-        privileged: true
+          allowPrivilegeEscalation: true
+          privileged: true 
+          readOnlyRootFilesystem: false
+          runAsUser: 0
       volumeMounts:
       - name: docker
         mountPath: /var/run/docker.sock
