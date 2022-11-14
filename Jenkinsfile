@@ -9,14 +9,14 @@ pipeline {
         spec:
           containers:
             - name: docker
-                image: docker:latest
-                command: ["echo", "Done!"]
-                tty: true
-                securityContext:
-                    privileged: true
-                volumeMounts:
-                - name: docker
-                    mountPath: /var/run/docker.sock
+            image: docker:latest
+            command: ["echo", "Done!"]
+            tty: true
+            securityContext:
+                privileged: true
+            volumeMounts:
+            - name: docker
+                mountPath: /var/run/docker.sock
           volumes:
             - name: docker
               hostPath:
