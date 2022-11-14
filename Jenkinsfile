@@ -1,24 +1,25 @@
 pipeline {
         agent {
             kubernetes {
-              yaml '''apiVersion: v1
+              yaml '''
+apiVersion: v1
 kind: Pod
 metadata:
     name: docker
 spec:
     containers:
     - name: docker
-    image: docker:latest
-    tty: true
-    securityContext:
+      image: docker:latest
+      tty: true
+      securityContext:
         privileged: true
-    volumeMounts:
-    - name: docker
+      volumeMounts:
+      - name: docker
         mountPath: /var/run/docker.sock
     volumes:
     - name: docker
         hostPath:
-        path: /var/run/docker.sock'''   
+          path: /var/run/docker.sock'''   
             }
         }        
         stages {
