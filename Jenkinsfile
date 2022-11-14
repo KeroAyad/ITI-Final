@@ -12,16 +12,16 @@ pipeline {
                 }
             }    
         }
-         stage ('deployment'){
-            steps {
+//          stage ('deployment'){
+//             steps {
             
-                    sh """
-                    kubectl apply -f app-deploy.yml -n app-deploy
-                    kubectl apply -f svc.yml -n app-deploy
-                    echo Done!
-                    """
-            }
+//                     sh """
+//                     kubectl apply -f app-deploy.yml -n app-deploy
+//                     kubectl apply -f svc.yml -n app-deploy
+//                     echo Done!
+//                     """
+//             }
         
-        }
+//         }
     }
 }
