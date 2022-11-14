@@ -1,7 +1,7 @@
 pipeline {
-        agent {
-            kubernetes {
-              yaml '''
+  agent {
+    kubernetes {
+      yaml '''
 apiVersion: v1
 kind: Pod
 metadata:
@@ -19,32 +19,47 @@ spec:
       - name: varlibcontainers
         mountPath: /var/lib/containers
   volumes:
-    - name: varlibcontainers'''   
-            }
-        }        
-        stages {
-        stage('build') {
-            steps {
-                  withCredentials([usernamePassword(credentialsId: 'dockerhub_id', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')])
-                {
-//                     sh "docker login -u kerolosayad -p ${PASSWORD}"
-//                     sh "docker build -t kerolosayad/nodeapp:latest ."
-//                     sh "docker push kerolosayad/nodeapp"
-                       sh "buildah ps"
-                    
-                }
-            }    
-        }
-//          stage ('deployment'){
-//             steps {
-            
-//                     sh """
-//                     kubectl apply -f app-deploy.yml -n app-deploy
-//                     kubectl apply -f svc.yml -n app-deploy
-//                     echo Done!
-//                     """
-//             }
-        
-//         }
+    - name: varlibcontainers
+'''   
     }
+  }
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '10'))
+    durabilityHint('PERFORMANCE_OPTIMIZED')
+    disableConcurrentBuilds()
+  }
+  environment {
+    DH_CREDS=credentials('dockerhub_id')
+  }
+  stages {
+    stage('Build with Buildah') {
+      steps {
+        container('buildah') {
+          sh 'buildah build -t kerolosayad/nodeapp:latest .'
+        }
+      }
+    }
+    stage('Login to Docker Hub') {
+      steps {
+        container('buildah') {
+          sh 'echo $DH_CREDS_PSW | buildah login -u $DH_CREDS_USR --password-stdin docker.io'
+        }
+      }
+    }
+    stage('push image') {
+      steps {
+        container('buildah') {
+          sh 'buildah push kerolosayad/nodeapp:latest'
+         
+        }
+      }
+    }
+  }
+  post {
+    always {
+      container('buildah') {
+        sh 'buildah logout docker.io'
+      }
+    }
+  }
 }
