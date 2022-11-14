@@ -21,7 +21,8 @@ pipeline {
             - name: varlibcontainers
         '''   
             }
-          }        stages {
+          }        
+        stages {
         stage('build') {
             steps {
                   withCredentials([usernamePassword(credentialsId: 'dockerhub_id', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')])
