@@ -5,12 +5,15 @@ pipeline {
         apiVersion: v1
         kind: Pod
         metadata:
-            name: sarva-test
+            name: docker-test
         spec:
             containers:
                 - name: dockercontainer
                     image: docker:latest
                     command: ["echo", "Done!"]
+                    tty: true
+                    securityContext:
+                        privileged: true
                     volumeMounts:
                     - name: docker
                         mountPath: /var/run/docker.sock
