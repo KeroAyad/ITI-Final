@@ -5,22 +5,22 @@ pipeline {
         apiVersion: v1
         kind: Pod
         metadata:
-            name: docker-test
+          name: docker
         spec:
-            containers:
-                    - name: dockercontainer
-                    image: docker:latest
-                    command: ["echo", "Done!"]
-                    tty: true
-                    securityContext:
-                        privileged: true
-            volumeMounts:
-                    - name: docker
-                    mountPath: /var/run/docker.sock
-            volumes:
+          containers:
+            - name: docker
+                image: docker:latest
+                command: ["echo", "Done!"]
+                tty: true
+                securityContext:
+                    privileged: true
+                volumeMounts:
                 - name: docker
-                hostPath:
-                    path: /var/run/docker.sock
+                    mountPath: /var/run/docker.sock
+          volumes:
+            - name: docker
+              hostPath:
+                path: /var/run/docker.sock
         '''   
             }
         }        
