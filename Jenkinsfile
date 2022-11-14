@@ -9,7 +9,7 @@ pipeline {
         spec:
             containers:
                 - name: dockercontainer
-                    image: docker:20
+                    image: docker:latest
                     command: ["echo", "Done!"]
                     volumeMounts:
                     - name: docker
